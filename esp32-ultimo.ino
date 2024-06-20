@@ -21,17 +21,6 @@
 #define FAN2_IN3_PIN 27   
 #define FAN2_IN4_PIN 14   
 
-/*
-#define FAN_LIGADO_PIN 2
-#define G_TEMP_PIN 32   // antigo 18
-#define R_TEMP_PIN 33   // antigo 19
-#define G_UMID_PIN 25   // antigo 21
-#define R_UMID_PIN 26   // antigo 3
-#define FUMACA 18       // antigo 5
-#define SEN_AGUA 22     // algum dia
-#define FAN1_EN_PIN 21  // antigo 32 
-#define FAN2_EN_PIN 3  // antigo 33
-*/
 // Definições do sensor DHT22
 #define DHTPIN 17
 #define DHTTYPE DHT22
@@ -59,8 +48,8 @@ const int FAN2_PWM_CHANNEL = 1;
 // Conexão WiFi e Firebase
 #define WIFI_SSID "Matheus p8"    // Matheus p8
 #define WIFI_PASSWORD "12345678"  // 12345678
-#define API_KEY "AIzaSyC4lVfdKsLQJnEPEx6P_OZyQ7MBZRo79Rc"
-#define DATABASE_URL "https://monitoramento-rack-datacenter-default-rtdb.firebaseio.com/"
+#define API_KEY "SUA_CHAVE_API"
+#define DATABASE_URL "SUA_URL"
 
 // Configurações do Firebase
 FirebaseData fbdo;
@@ -224,11 +213,11 @@ void updateFirebase() {
         manualOverride = true;
         manualOverrideStartTime = millis();
         // Ligar ventoinhas a 100%
-        //digitalWrite(FAN1_IN1_PIN, HIGH);
-        //digitalWrite(FAN1_IN2_PIN, LOW);
+        digitalWrite(FAN1_IN1_PIN, HIGH);
+        digitalWrite(FAN1_IN2_PIN, LOW);
         ledcWrite(FAN1_PWM_CHANNEL, 255); // 100% de duty cycle
-        //digitalWrite(FAN2_IN3_PIN, HIGH);
-        //digitalWrite(FAN2_IN4_PIN, LOW);
+        digitalWrite(FAN2_IN3_PIN, HIGH);
+        digitalWrite(FAN2_IN4_PIN, LOW);
         ledcWrite(FAN2_PWM_CHANNEL, 255); // 100% de duty cycle
         Serial.println();
         Serial.println("Ventoinhas em 100% até segunda ordem");
@@ -258,11 +247,11 @@ void controlFans() {
     // Controle automático baseado na temperatura e umidade
     if (tempc > 30.0) {
       // Temperatura crítica: ligar ventoinhas a 100%
-      //digitalWrite(FAN1_IN1_PIN, HIGH);
-      //digitalWrite(FAN1_IN2_PIN, LOW);
+      digitalWrite(FAN1_IN1_PIN, HIGH);
+      digitalWrite(FAN1_IN2_PIN, LOW);
       ledcWrite(FAN1_PWM_CHANNEL, 255); // 100% de duty cycle
-      //digitalWrite(FAN2_IN3_PIN, HIGH);
-      //digitalWrite(FAN2_IN4_PIN, LOW);
+      digitalWrite(FAN2_IN3_PIN, HIGH);
+      digitalWrite(FAN2_IN4_PIN, LOW);
       ledcWrite(FAN2_PWM_CHANNEL, 255); // 100% de duty cycle
       digitalWrite(R_TEMP_PIN, HIGH);
       digitalWrite(G_TEMP_PIN, LOW);
@@ -273,11 +262,11 @@ void controlFans() {
         Serial.println();
     } else if (tempc > 25.0) {
       // Temperatura alta: ligar ventoinhas a 50%
-      //digitalWrite(FAN1_IN1_PIN, HIGH);
-      //digitalWrite(FAN1_IN2_PIN, LOW);
+      digitalWrite(FAN1_IN1_PIN, HIGH);
+      digitalWrite(FAN1_IN2_PIN, LOW);
       ledcWrite(FAN1_PWM_CHANNEL, 128); // 50% de duty cycle
-      //digitalWrite(FAN2_IN3_PIN, HIGH);
-      //digitalWrite(FAN2_IN4_PIN, LOW);
+      digitalWrite(FAN2_IN3_PIN, HIGH);
+      digitalWrite(FAN2_IN4_PIN, LOW);
       ledcWrite(FAN2_PWM_CHANNEL, 128); // 50% de duty cycle
       digitalWrite(R_TEMP_PIN, LOW);
       digitalWrite(G_TEMP_PIN, HIGH);
